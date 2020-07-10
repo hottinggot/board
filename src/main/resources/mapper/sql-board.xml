@@ -10,4 +10,23 @@
         <![CDATA[
             insert into t_board(title,contents,created_datetime,creator_id) values(#{title},#{contents},NOW(),'admin')]]>
     </insert>
+    <update id="updateHitCount" parameterType="int">
+        <![CDATA[
+            update t_board set hit_cnt = hit_cnt + 1 where board_idx=#{boardIdx}]]>
+    </update>
+    <select id="selectBoardDetail" resultType="com.example.board.board.dto.BoardDto">
+        <![CDATA[
+            select board_idx, title, contents, hit_cnt, created_datetime, creator_id from t_board where board_idx=#{boardIdx} and deleted_yn='N'
+]]>
+    </select>
+    <update id="updateBoard" parameterType="com.example.board.board.dto.BoardDto">
+        <![CDATA[
+            update t_board set title=#{title}, contents=#{contents}, updated_datetime=NOW(), updater_id='admin' where board_idx=#{boardIdx}
+]]>
+    </update>
+    <update id="deleteBoard" parameterType="int">
+        <![CDATA[
+            update t_board set deleted_yn='Y', updated_datetime=NOW(), updater_id='admin' where board_idx=#{boardIdx}
+]]>
+    </update>
 </mapper>
