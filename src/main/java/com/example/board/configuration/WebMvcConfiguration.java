@@ -24,11 +24,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
 
-        return characterEncodingFilter;
+        return (Filter) characterEncodingFilter;
     }
 
     @Bean
     public HttpMessageConverter<String> responseBodyConverter(){
-        return new StringHttpMessageConverter(Charset.forName("UTF-8"))
+        return new StringHttpMessageConverter(Charset.forName("UTF-8"));
     }
 }

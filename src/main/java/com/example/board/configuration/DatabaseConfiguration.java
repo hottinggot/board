@@ -18,6 +18,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @Configuration
 @PropertySource("classpath:/application.properties") //classpath는 resources 디렉터리를 의미함
@@ -68,5 +69,12 @@ public class DatabaseConfiguration {
     public PlatformTransactionManager transactionManager() throws Exception{
         return new DataSourceTransactionManager(dataSource());
     }
+
+    @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
+        HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
+        return filter;
+    }
+
 
 }

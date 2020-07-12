@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>board</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>게시글 상세 화면</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <div class="container">
@@ -41,6 +42,8 @@
             </tbody>
         </table>
         <input type="hidden" id="boardIdx" name="boardIdx" th:value="${board.boardIdx }">
+        <!-- 여기 -->
+        <input type="hidden" id="method" name="_method"/>
     </form>
 
     <a href="#this" id="list" class="btn">목록으로</a>
@@ -51,21 +54,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        /* 여기 */
+        var boardIdx = $("#boardIdx").val();
+
         $("#list").on("click", function(){
-            location.href = "/board/openBoardList.do";
+            /* 여기 */
+            location.href = "/board/";
         });
 
         $("#edit").on("click", function(){
+            /* 여기 */
+            $("#method").val("put");
+
             var frm = $("#frm")[0];
-            frm.action = "/board/updateBoard.do";
+            frm.action = "/board/"+boardIdx;
             frm.submit();
         });
 
         $("#delete").on("click", function(){
+            /* 여기 */
+            $("#method").val("delete");
+
             var frm = $("#frm")[0];
-            frm.action = "/board/deleteBoard.do";
+            frm.action = "/board/"+boardIdx;
             frm.submit();
         });
     });
 </script>
 </body>
+</html>
