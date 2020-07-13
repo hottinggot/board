@@ -20,6 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
+import java.util.Properties;
+
 @Configuration
 @PropertySource("classpath:/application.properties") //classpath는 resources 디렉터리를 의미함
 @EnableTransactionManagement
@@ -74,6 +76,12 @@ public class DatabaseConfiguration {
     public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
         HiddenHttpMethodFilter filter = new HiddenHttpMethodFilter();
         return filter;
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "spring.jpa")
+    public Properties hibernateConfig(){
+        return new Properties();
     }
 
 
